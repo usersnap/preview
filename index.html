@@ -1,0 +1,23 @@
+<html>
+  <head>
+  </head>
+<body>
+  <iframe id="testframe" src="" width="100%", height="100%">
+  </iframe>
+
+  <script>
+    const urlObj = new URL(window.location);
+    const url = urlObj.searchParams.get("url");
+    const frame = document.getElementById("testframe");
+    frame.src = url;
+    window.onUsersnapCXLoad = function(api) {
+      api.init();
+      console.log(apiKey);
+    }
+    var script = document.createElement('script');
+    script.defer = 1;
+    script.src = 'https://widget.usersnap.com/global/load/72bf4e29-1c53-4a90-9972-d075ff914451?onload=onUsersnapCXLoad';
+    document.getElementsByTagName('head')[0].appendChild(script);
+  </script>
+</body>
+</html>
