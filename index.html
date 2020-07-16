@@ -1,4 +1,5 @@
 <html>
+  <meta charset="UTF-8">
   <style>
     body {
       margin: 0;
@@ -6,30 +7,73 @@
     iframe {
       border-width: 0;
     }
-    #testing {
+    #headerContainer {
       position: absolute;
-      top: -16px;
-      left: 40%;
-      background-color: blue;
+    }
+    #header {
+      font-family: "Roboto", "Helvetica", "Arial", sans-serif;
       color: white;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+      background-color: #3a21ce;
       padding: 5px;
+      display: block;
+      width: 170px;
+      height: 25px;
+      text-align: center;
+    }
+    #header::before {
+      content: ' ';
+    }
+    #header:hover::after {
+      content: '⮕';
+    }
+    #header:hover {
+      cursor: pointer;
+      background-color: #5d4bc6;
+    }
+    #headerContainer.center {
+      left: 50%;
+    }
+    #headerContainer.center #header:hover::before {
+      content: '⬅';
+    }
+    #headerContainer.center #header::after {
+      content: '  ';
+    }
+    #headerContainer.center #header {
+      position: relative;
+      left: -50%;
     }
   </style>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
   <head>
   </head>
 <body>
-  <p id="testing">Testing Usersnap</p>
+  <div id="headerContainer" class="center">
+    <a id="header">
+      Testing Usersnap
+    </a>
+  </div>
   <iframe id="testframe" src="" width="100%", height="100%">
   </iframe>
 
   <script>
     const urlObj = new URL(window.location);
     const url = urlObj.searchParams.get("url");
+    const headerContainer = document.getElementById("headerContainer");
+    const header = document.getElementById("header");
+    header.onclick = function(event) {
+      if (headerContainer.classList.contains("center")) {
+        headerContainer.classList.remove("center");
+      } else {
+        headerContainer.classList.add("center");
+      }
+    }
     const frame = document.getElementById("testframe");
     frame.src = url;
     window.onUsersnapCXLoad = function(api) {
       api.init();
-      console.log(apiKey);
     }
     var script = document.createElement('script');
     script.defer = 1;
